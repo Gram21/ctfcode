@@ -9,7 +9,7 @@ from pwn import *
 ####################################
 #          Target System           #
 ####################################
-target = "pwn.kitctf.de"
+target = "localhost"
 port = 1337
 binary = "./binary"
 
