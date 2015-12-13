@@ -1,5 +1,6 @@
 # ctfcode
-Template for CTF-Challenges
+Template for CTF-Challenges.
+
 This templates builds on pwntools, so you need to install pwntools before
 ```sh
 pip install pwntools
