@@ -10,11 +10,14 @@ from pwn import *
 ####################################
 #          Target System           #
 ####################################
+# Server Connection
 target = "localhost"
 port = 1337
-binary = "./binary"
 
-# set the context: i386, amd64
+# Process Connection
+#binary = "./binary"
+
+# Context: i386/amd64/... and linux/freebsd/windows
 context.update(arch='i386', os='linux')
 
 ####################################
@@ -24,7 +27,10 @@ context.update(arch='i386', os='linux')
 DEBUG = False
 # Set if recv should automatically print
 PRINTER = True
+# Std timeout for the connection
 TIMEOUT = 2
+# Std print color. None means no extra color
+STD_COL = None
 
 ####################################
 #             Colors               #
@@ -51,7 +57,7 @@ class col:
 #          print methods           #
 ####################################
 """method to print a string more pretty"""
-def prettyprint(s, color=None):
+def prettyprint(s, color=STD_COL):
     if color == None:
         print s
     else:
@@ -82,63 +88,67 @@ def print_underline(s):
 def send():
     r.send()
 
+"""send with a newline at the end"""
 def sendline(s):
     r.sendline(s)
 
 """recvuntil then send"""
-def sendafter(delim, data, shallprint=PRINTER, color=None):
+def sendafter(delim, data, shallprint=PRINTER, color=STD_COL):
     tmp = r.sendafter(delim, data)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
 """recvuntil then sendline"""
-def sendlineafter(delim, data, shallprint=PRINTER, color=None):
+def sendlineafter(delim, data, shallprint=PRINTER, color=STD_COL):
     tmp = r.sendlineafter(delim, data)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
 """sendline and then recvuntil"""
-def sendlinethen(delim, data, shallprint=PRINTER, color=None):
+def sendlinethen(delim, data, shallprint=PRINTER, color=STD_COL):
     tmp = r.sendlinethen(delim, data)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
 """send and then recvuntil"""
-def sendthen(delim, data, shallprint=PRINTER, color=None):
+def sendthen(delim, data, shallprint=PRINTER, color=STD_COL):
     tmp = r.sendthen(delim, data)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
-def recv(shallprint=PRINTER, color=None):
+def recv(shallprint=PRINTER, color=STD_COL):
     tmp = r.recv()
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
-def recvline(shallprint=PRINTER, color=None):
+"""recv until a newline is found"""
+def recvline(shallprint=PRINTER, color=STD_COL):
     tmp = r.recvline()
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
 """recv until s appeared. drop s if drop=true"""
-def recvuntil(s, shallprint=PRINTER, drop=False, color=None):
+def recvuntil(s, shallprint=PRINTER, drop=False, color=STD_COL):
     tmp = r.recvuntil(s,drop)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
-def recvn(n, shallprint=PRINTER, color=None):
+"""recv n bytes"""
+def recvn(n, shallprint=PRINTER, color=STD_COL):
     tmp = r.recvn(n)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
 
-def recvregex(r, shallprint=PRINTER, exact=False, color=None):
+"""recv until regex is found"""
+def recvregex(r, shallprint=PRINTER, exact=False, color=STD_COL):
     tmp = r.recvregex(r, exact)
     if shallprint:
         prettyprint(tmp, color)
@@ -149,8 +159,10 @@ def recvregex(r, shallprint=PRINTER, exact=False, color=None):
 ####################################
 if DEBUG:
     context.log_level = 'debug'
+
 # Connect to target
 r = remote(target, port, timeout=TIMEOUT)
+
 # Connect to process
 #r = process(binary)
 
