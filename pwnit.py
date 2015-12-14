@@ -170,11 +170,11 @@ r = remote(target, port, timeout=TIMEOUT)
 #         Your code here
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Things that can be used:
-# time.sleep(1)
+# sleep(1)
+# pause()/pause(n) -> waits for user input or n seconds
 # cyclic(100), cyclic_find("aaaa")
 # p32(0xdeadbeef), u32(s), p32(0xdeadbeef, endian='big') etc.
 # asm(shellcraft.sh()) or similar
-# pause()/pause(n) -> waits for user input or n seconds
 
 def pwn():
     pass
