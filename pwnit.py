@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
+
 # Python exploit template.
 #
 # Author: Jan Keim aka Gram21, Gramarye
@@ -26,79 +27,128 @@ PRINTER = True
 TIMEOUT = 2
 
 ####################################
+#             Colors               #
+####################################
+class coloring:
+    COLOR_BLACK = '30'
+    COLOR_RED = '31'
+    COLOR_GREEN = '32'
+    COLOR_BROWN = '33'
+    COLOR_YELLOW = '33'
+    COLOR_BLUE = '34'
+    COLOR_MAGENTA = '35'
+    COLOR_CYAN = '36'
+    COLOR_WHITE = '37'
+    CLEAR = '0'
+
+    UNDERLINE = '4'
+    BOLD = '1'
+
+    ESCAPE_START = '\033['
+    ESCAPE_END = 'm'
+
+####################################
+#          print methods           #
+####################################
+"""method to print a string more pretty"""
+def prettyprint(s, color=None):
+    if color == None:
+        print s
+    else:
+        # TODO differentiate between printable and "hex"?
+        col = coloring.ESCAPE_START + color + coloring.ESCAPE_END
+        clear = coloring.ESCAPE_START + coloring.CLEAR + coloring.ESCAPE_END
+        print  col + s + clear
+
+def print_good(s):
+    prettyprint(s, color=coloring.COLOR_GREEN)
+
+def print_bad(s):
+    prettyprint(s, color=coloring.COLOR_RED)
+
+def print_info(s):
+    prettyprint(s, color=coloring.COLOR_YELLOW)
+
+def print_bold(s):
+    prettyprint(s, color=coloring.BOLD)
+
+def print_underline(s):
+    prettyprint(s, color=coloring.UNDERLINE)
+
+####################################
 #       convenience wrappers       #
 ####################################
 
 def send():
-	r.send()
+    r.send()
 
 def sendline(s):
-	r.sendline(s)
+    r.sendline(s)
 
 """recvuntil then send"""
-def sendafter(delim, data, shallprint=PRINTER):
-	tmp = r.sendafter(delim, data)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def sendafter(delim, data, shallprint=PRINTER, color=None):
+    tmp = r.sendafter(delim, data)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
 """recvuntil then sendline"""
-def sendlineafter(delim, data, shallprint=PRINTER):
-	tmp = r.sendlineafter(delim, data)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def sendlineafter(delim, data, shallprint=PRINTER, color=None):
+    tmp = r.sendlineafter(delim, data)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
 """sendline and then recvuntil"""
-def sendlinethen(delim, data, shallprint=PRINTER):
-	tmp = r.sendlinethen(delim, data)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def sendlinethen(delim, data, shallprint=PRINTER, color=None):
+    tmp = r.sendlinethen(delim, data)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
 """send and then recvuntil"""
-def sendthen(delim, data, shallprint=PRINTER):
-	tmp = r.sendthen(delim, data)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def sendthen(delim, data, shallprint=PRINTER, color=None):
+    tmp = r.sendthen(delim, data)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
-def recv(shallprint=PRINTER):
-	tmp = r.recv()
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def recv(shallprint=PRINTER, color=None):
+    tmp = r.recv()
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
-def recvline(shallprint=PRINTER):
-	tmp = r.recvline()
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def recvline(shallprint=PRINTER, color=None):
+    tmp = r.recvline()
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
 """recv until s appeared. drop s if drop=true"""
-def recvuntil(s, shallprint=PRINTER, drop=False):
-	tmp = r.recvuntil(s,drop)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def recvuntil(s, shallprint=PRINTER, drop=False, color=None):
+    tmp = r.recvuntil(s,drop)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
-def recvn(n, shallprint=PRINTER):
-	tmp = r.recvn(n)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def recvn(n, shallprint=PRINTER, color=None):
+    tmp = r.recvn(n)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
-def recvregex(r, shallprint=PRINTER, exact=False):
-	tmp = r.recvregex(r, exact)
-	if shallprint:
-		log.success(tmp)
-	return tmp
+def recvregex(r, shallprint=PRINTER, exact=False, color=None):
+    tmp = r.recvregex(r, exact)
+    if shallprint:
+        prettyprint(tmp, color)
+    return tmp
 
 ####################################
 #               PWN                #
 ####################################
 if DEBUG:
-	context.log_level = 'debug'
+    context.log_level = 'debug'
 # Connect to target
 r = remote(target, port, timeout=TIMEOUT)
 # Connect to process
@@ -118,7 +168,7 @@ def pwn():
     pass
 
 # start the pwn
-pause() # requires user input to start (e.g. for wating for server)
+pause() # requires user input to start (e.g. waiting for server etc)
 pwn()
 
 
