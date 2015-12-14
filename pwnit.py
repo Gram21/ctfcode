@@ -29,16 +29,16 @@ TIMEOUT = 2
 ####################################
 #             Colors               #
 ####################################
-class coloring:
-    COLOR_BLACK = '30'
-    COLOR_RED = '31'
-    COLOR_GREEN = '32'
-    COLOR_BROWN = '33'
-    COLOR_YELLOW = '33'
-    COLOR_BLUE = '34'
-    COLOR_MAGENTA = '35'
-    COLOR_CYAN = '36'
-    COLOR_WHITE = '37'
+class col:
+    BLACK = '30'
+    RED = '31'
+    GREEN = '32'
+    BROWN = '33'
+    YELLOW = '33'
+    BLUE = '34'
+    MAGENTA = '35'
+    CYAN = '36'
+    WHITE = '37'
     CLEAR = '0'
 
     UNDERLINE = '4'
@@ -56,24 +56,24 @@ def prettyprint(s, color=None):
         print s
     else:
         # TODO differentiate between printable and "hex"?
-        col = coloring.ESCAPE_START + color + coloring.ESCAPE_END
-        clear = coloring.ESCAPE_START + coloring.CLEAR + coloring.ESCAPE_END
-        print  col + s + clear
+        coloring = col.ESCAPE_START + color + col.ESCAPE_END
+        clear = col.ESCAPE_START + col.CLEAR + col.ESCAPE_END
+        print  coloring + s + clear
 
 def print_good(s):
-    prettyprint(s, color=coloring.COLOR_GREEN)
+    prettyprint(s, color=col.GREEN)
 
 def print_bad(s):
-    prettyprint(s, color=coloring.COLOR_RED)
+    prettyprint(s, color=col.RED)
 
 def print_info(s):
-    prettyprint(s, color=coloring.COLOR_YELLOW)
+    prettyprint(s, color=col.YELLOW)
 
 def print_bold(s):
-    prettyprint(s, color=coloring.BOLD)
+    prettyprint(s, color=col.BOLD)
 
 def print_underline(s):
-    prettyprint(s, color=coloring.UNDERLINE)
+    prettyprint(s, color=col.UNDERLINE)
 
 ####################################
 #       convenience wrappers       #
