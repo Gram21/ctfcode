@@ -148,8 +148,8 @@ def recvn(n, shallprint=PRINTER, color=STD_COL):
     return tmp
 
 """recv until regex is found"""
-def recvregex(r, shallprint=PRINTER, exact=False, color=STD_COL):
-    tmp = r.recvregex(r, exact)
+def recvregex(regex, shallprint=PRINTER, exact=False, color=STD_COL):
+    tmp = r.recvregex(regex, exact)
     if shallprint:
         prettyprint(tmp, color)
     return tmp
