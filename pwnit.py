@@ -180,9 +180,10 @@ def pwn():
     pass
 
 # start the pwn
-pause() # requires user input to start (e.g. waiting for server etc)
-pwn()
+if __name__ == "__main__":
+    pause() # requires user input to start (e.g. waiting for server etc)
+    pwn()
 
+    # When there is a shell
+    # r.interactive()
 
-# When there is a shell
-# r.interactive()
