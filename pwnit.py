@@ -85,8 +85,8 @@ def print_underline(s):
 #       convenience wrappers       #
 ####################################
 
-def send():
-    r.send()
+def send(s=""):
+    r.send(s)
 
 """send with a newline at the end"""
 def sendline(s):
