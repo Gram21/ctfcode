@@ -89,7 +89,7 @@ def send(s=""):
     r.send(s)
 
 """send with a newline at the end"""
-def sendline(s):
+def sendline(s=""):
     r.sendline(s)
 
 """recvuntil then send"""
