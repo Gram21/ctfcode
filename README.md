@@ -1,5 +1,5 @@
 # ctfcode
-Template for CTF-Challenges. Inspired by others like the ones from [kitctf](https://github.com/kitctf/ctfcode/tree/master/ExploitTemplates) and [saelo](https://github.com/saelo/ctfcode)
+Template for CTF-Challenges. Inspired by others like the ones from [kitctf](https://github.com/kitctf/ctfcode/tree/master/ExploitTemplates) and [saelo](https://github.com/saelo/ctfcode) and some parts from [niklasb](https://github.com/niklasb/ctf-tools/)
 
 This templates builds on pwntools, so you need to install pwntools before
 ```sh
